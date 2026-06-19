@@ -1,0 +1,43 @@
+table: ./output_ml/training_table.csv
+subject_col: subject_id
+target_col: target_score
+split_mode: subject
+batch_size: 8
+seed: 42
+force_cpu: false
+split:
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+model:
+  hrv_hidden_dim: 64
+  sensor_model_dim: 64
+  fusion_hidden_dim: 256
+  num_heads: 2
+  num_sensor_layers: 3
+  dropout: 0.11413491262742
+optimization:
+  learning_rate: 0.000733955770570773
+  weight_decay: 1.87382158127425E-06
+  epochs: 50
+  patience: 15
+  min_delta: 0.0001
+loss:
+  alpha: 0.517486321512381
+  beta: 0.36933711817215
+  margin: 20.0
+  n_classes: 5
+ca:
+  enable_ca: false
+  ca_input_mode: placeholder
+  omega_f: 0.5
+  omega_q: 0.5
+  ca_tau: 0.5
+  ca_expected_frequency: 1.0
+  ca_expected_duration: 1.0
+output:
+  checkpoint_dir: output_ml\tuning\hybrid_tuning_v1\trial_checkpoints
+  run_name: hybrid_tuning_v1_trial_040
+  save_last: true
+  history_csv: null
+  report_dir: output_ml\tuning\hybrid_tuning_v1\trial_reports

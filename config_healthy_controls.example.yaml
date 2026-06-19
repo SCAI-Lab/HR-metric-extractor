@@ -1,0 +1,154 @@
+project:
+  name: healthy-controls-analysis
+  output_dir: ./output_hc
+
+# Configuration for SCAI-NCGG Healthy Controls Synchronized Data
+# Data location: scai-ncgg-hc-synced/sub_XXX/
+data:
+  # Path to synchronized activity intervals (already processed)
+  adl_path: C:\Users\Nicla\Documents\ETHZ\Lifelogging\Data\interim\scai-ncgg-hc-synced\sub_001\scai_app\scai_app_intervals_corrected.csv.gz
+  
+  # Path to ECG signal data directory
+  ecg_path: C:\Users\Nicla\Documents\ETHZ\Lifelogging\Data\interim\scai-ncgg-hc-synced\sub_001\vivalnk_vv330_ecg
+  
+  # Optional: Path to additional sensor directories (e.g. IMU)
+  imu_paths: null  # Set to path if available, e.g. scai-ncgg-hc-synced/sub_001/vivalnk_vv330_accel
+  
+  # Optional: Corsano BioZ data
+  eda_bioz_path: null
+  
+  # Optional: Pre-computed HR metrics
+  hr_metrics_path: null
+
+activities:
+  # Time offset to align ADL with ECG timestamps
+  # For healthy controls synchronized data, set to 'auto' to auto-estimate
+  time_offset_sec: auto
+  
+  # Activity type keywords for propulsion/locomotion
+  propulsion_keywords:
+    - level walking
+    - walking
+    - self propulsion
+    - propulsion
+    - assisted propulsion
+    - ambulation
+    
+  # Activity type keywords for rest/baseline
+  resting_keywords:
+    - sitting
+    - rest
+    - lying
+    - seated
+    - recumbent
+  
+  # Define custom activity groups with specific keywords and durations
+  extra:
+    # Basic Mobility: d4154 Maintaining a standing position
+    standing:
+      keywords:
+        - stand
+      min_duration_sec: 10.0
+    
+    # d4200 Transferring oneself while sitting
+    transfer:
+      keywords:
+        - transfer to bed
+        - transfer from bed
+        - sit to stand
+        - stand to sit
+        - Sit to Lying
+        - bed transfer
+      min_duration_sec: 3.0
+    
+    # d4201 Transferring oneself while lying
+    bed_transfer:
+      keywords:
+        - Turn Over (right)
+        - Turn Over (left)
+        - Lying to Sit
+      min_duration_sec: 10.0
+    
+    # Self-care: d5100 Washing body parts
+    washing_hands:
+      keywords:
+        - wash hands
+        - washing hands
+        - hand wash
+      min_duration_sec: 10.0
+    
+    # d5100 Washing body parts
+    washing_face:
+      keywords:
+        - wash face
+        - washing face
+        - face wash
+      min_duration_sec: 10.0
+    
+    # d5201 Caring for teeth
+    dental_care:
+      keywords:
+        - put toothpaste
+        - brush teeth
+        - rinse mouth
+      min_duration_sec: 8.0
+    
+    # d5202 Caring for hair
+    hair_care:
+      keywords:
+        - Style Beard/Hair
+      min_duration_sec: 15.0
+  
+  # Minimum activity duration thresholds
+  min_duration_sec: 10.0  # For propulsion activities
+  baseline_min_duration_sec: 20.0  # For resting/baseline activities
+
+signal:
+  # Signal type for HR metrics extraction
+  signal_type: ecg
+  
+  # Sampling frequency of ECG data (Hz)
+  sampling_frequency_hz: 128.0
+
+visualization:
+  # Enable HR signal overlays for activities
+  enable_overlays: true
+  
+  # Which activity types to visualize
+  activities: [propulsion, resting, standing, transfer, bed_transfer, washing_hands, washing_face, dental_care, hair_care]
+  
+  # Time margin around activity windows (seconds)
+  margin_sec: 30.0
+  
+  # Maximum number of activity windows to visualize
+  max_windows_per_activity: 5
+  
+  # Show relative time (relative to activity start) instead of absolute timestamps
+  relative_time: true
+  
+  # Output subdirectory for overlay plots
+  output_dir: overlays
+
+analysis:
+  # Set to false for much faster runs when IMU features are not required
+  enable_imu_features: true
+
+  # Compute HR metrics for activities vs baselines
+  compute_baseline_comparison: true
+  
+  # Analyze temporal overlap/alignment
+  compute_window_overlap: true
+  
+  # Detect delays between activity and HR response
+  analyze_delays: true
+  
+  # Parameters for delay analysis
+  max_delay_sec: 300.0  # Maximum time to search for HR response delay
+  recovery_window_sec: 300.0  # Window for recovery analysis after activity
+  baseline_window_sec: 120.0  # Baseline period before activity
+  
+  windowing:
+    # Window-based analysis configuration
+    enabled: true
+    window_duration_sec: 60.0
+    overlap_percent: 50

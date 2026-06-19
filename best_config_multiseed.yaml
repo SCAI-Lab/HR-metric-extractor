@@ -1,0 +1,48 @@
+table: ./output_ml/training_table.csv
+subject_col: subject_id
+target_col: target_score
+target_scale_mode: auto
+target_source_min: 1.0
+target_source_max: 5.0
+split_mode: subject
+batch_size: 16
+seed: 42
+force_cpu: false
+cv_mode: none
+cv_folds: 5
+split:
+  train_frac: 0.7
+  val_frac: 0.15
+  test_frac: 0.15
+model:
+  hrv_hidden_dim: 256
+  sensor_model_dim: 256
+  fusion_hidden_dim: 256
+  num_heads: 8
+  num_sensor_layers: 3
+  dropout: 0.37767254964972485
+optimization:
+  learning_rate: 0.0016003130130593356
+  weight_decay: 1.0117514480875756e-06
+  epochs: 200
+  patience: 75
+  min_delta: 0.0001
+loss:
+  alpha: 0.23792459037121408
+  beta: 0.40190817973749093
+  margin: 15.0
+  n_classes: 5
+ca:
+  enable_ca: false
+  ca_input_mode: placeholder
+  omega_f: 0.5
+  omega_q: 0.5
+  ca_tau: 0.5
+  ca_expected_frequency: 1.0
+  ca_expected_duration: 1.0
+output:
+  checkpoint_dir: output_ml\tuning\multi-seed-tuning\trial_checkpoints
+  run_name: multi-seed-tuning_trial_038
+  save_last: true
+  history_csv: null
+  report_dir: output_ml\tuning\multi-seed-tuning\trial_reports

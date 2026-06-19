@@ -1,0 +1,6 @@
+activity_idx,activity_name,t_start,t_end,duration_sec,mean_hr,rmssd,sdnn,mean_rr_ms,stress_index,n_beats,HR__abs_energy,HR__maximum,HR__root_mean_square,HR_1st_deriv__abs_energy,HR_1st_deriv__maximum,HR_1st_deriv__minimum,HR_1st_deriv__number_peaks__n_1,HR_1st_deriv__root_mean_square,HR_2nd_deriv__abs_energy,HR_2nd_deriv__maximum,HR_2nd_deriv__minimum,HR_2nd_deriv__root_mean_square,HRV_MinNN,HRV_SDRMSSD,HRV_LFn,HRV_TINN,EDA_MAVFD,EDA_Phasic__number_peaks__n_1,EDA_Phasic__number_peaks__n_5,EDA_Range,EDA_Sympathetic,EDA_Tonic_SD
+0,brush teeth,1740482094.937,1740482155.332,60.394999980926514,,,,,,,,,,,,,,,,,,,,,,,0.532803180914513,119.0,103.0,496.0,,144.22252082365688
+1,rinse mouth,1740482158.652,1740482171.636,12.983999967575073,,,,,,,,,,,,,,,,,,,,,,,3.1450617283950617,13.0,12.0,211.0,,20.45341225392685
+2,put toothpaste,1740739293.633,1740739307.433,13.800000190734863,,,,,,,,,,,,,,,,,,,,,,,4.584302325581396,18.0,12.0,282.0,,7.557597441483982
+3,brush teeth,1740739306.916,1740739361.715,54.79900002479553,,,,,,,,,,,,,,,,,,,,,,,0.08108108108108109,3.0,3.0,83.0,,1.2054848885146079
+4,rinse mouth,1740739362.337,1740739382.697,20.360000133514404,,,,,,,,,,,,,,,,,,,,,,,4.102362204724409,13.0,11.0,408.0,,34.88449746754992

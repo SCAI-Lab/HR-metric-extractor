@@ -1,0 +1,3 @@
+activity_idx,activity_type,activity_name,activity_t_start,activity_t_end,activity_duration_sec,baseline_t_start,baseline_t_end,baseline_duration_sec,time_gap_sec,delta_mean_hr,pct_mean_hr,delta_rmssd,pct_rmssd,delta_sdnn,pct_sdnn,delta_stress_index,pct_stress_index,delta_mean_rr_ms,pct_mean_rr_ms,delta_n_beats,pct_n_beats
+0,washing_hands,wash hands,1740482055.652,1740482067.624,11.972000122070312,1740481514.22,1740481538.339,24.11899995803833,517.3129999637604,,,,,,,,,,,,
+1,washing_hands,wash hands,1740739224.778,1740739285.35,60.5719997882843,1740738705.842,1740738770.792,64.95000004768372,453.98600006103516,,,,,,,,,,,,

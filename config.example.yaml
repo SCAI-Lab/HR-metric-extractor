@@ -1,0 +1,108 @@
+project:
+  name: propulsion-analysis
+  output_dir: ./output
+
+# Update these paths to your data files
+# Use absolute paths or paths relative to the repo root.
+data:
+  adl_path: /path/to/ADLs.csv.gz
+  ecg_path: /path/to/ecg.csv.gz
+  imu_paths: null  # Optional: dict mapping sensor_name -> path, or null for auto-discovery
+                   # Example: {corsano_bioz_acc: /path/to/corsano_bioz_acc, corsano_wrist_acc: /path/to/corsano_wrist_acc}
+  eda_bioz_path: null  # Optional: corsano_bioz_bioz path or file (auto-discovery if null)
+  hr_metrics_path: null  # Optional: set to path if pre-computed
+
+activities:
+  # Time offset to align ADL timestamps with ECG timestamps (in seconds)
+  # Use null or 'auto' to auto-estimate from data.
+  time_offset_sec: null
+
+  # Keywords to identify propulsion-related activities
+  propulsion_keywords:
+    - level walking
+    - walking
+    - walker
+    - self propulsion
+    - propulsion
+    - assisted propulsion
+
+  # Keywords to identify rest/baseline periods
+  resting_keywords:
+    - sitting
+    - rest
+    - lying
+
+  # Minimum activity durations (in seconds)
+  min_duration_sec: 30.0
+  baseline_min_duration_sec: 35.0
+
+  # Extra activity categories (optional)
+  extra:
+    washing_hands:
+      keywords:
+        - wash hands
+        - washing hands
+        - hand wash
+      min_duration_sec: 15.0
+
+signal:
+  # Signal type: one of [ppg, ecg, hr]
+  signal_type: ecg
+
+  # Sampling frequency of your signal (Hz)
+  # - PPG from wearables: typically 32-64 Hz
+  # - ECG: typically 128-256 Hz
+  # - HR: varies by device/method
+  sampling_frequency_hz: 128.0
+
+analysis:
+  # Set to false for much faster runs when IMU features are not required
+  enable_imu_features: true
+
+  # Compute HR metrics for activities and baselines
+  compute_baseline_comparison: true
+
+  # Analyze temporal relationship between activity and HR response
+  compute_window_overlap: true
+
+  # Advanced: detect delays between activity and physiological response
+  analyze_delays: true
+
+  # Parameters for delay and recovery analysis
+  max_delay_sec: 300.0
+  recovery_window_sec: 300.0
+  baseline_window_sec: 120.0
+
+  # Optional: expand each activity bout into multiple aligned windows
+  # (useful for short bouts and delayed cardio response modeling)
+  windowing:
+    enabled: false
+    include_original_bout: true
+    immediate_window_sec: [10.0, 20.0]
+    cardio_delay_window_sec: 20.0
+    cardio_delay_starts_sec: [10.0, 20.0, 30.0, 40.0]
+    recovery_window_sec: 20.0
+    recovery_starts_sec: [0.0, 20.0]
+    min_window_duration_sec: 5.0
+
+visualization:
+  # Generate HR overlay plots during the pipeline run
+  enable_overlays: false
+
+  # Activities to visualize (use safe names for custom activities)
+  activities:
+    - propulsion
+    - resting
+    - washing_hands
+
+  # Padding around each activity window (seconds)
+  margin_sec: 30.0
+
+  # Limit plots per activity type (null for all)
+  max_windows_per_activity: 5
+
+  # Plot time relative to activity start
+  relative_time: true
+
+  # Relative or absolute output directory (relative -> output_dir)
+  output_dir: overlays
